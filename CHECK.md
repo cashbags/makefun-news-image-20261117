@@ -61,7 +61,37 @@ build: the numbers below are the ones the runs printed.
   below is the authority on the intake caps; the tree is far under the
   caps the gta6 entry (2.8 MB) passed.
 
-## Kit check
+## Kit check (trial bundle, this session — 2026-11-18 00:37 WIB)
 
-- (Filled in after the bundle: command, pass/fail counts, and the
-  thinking_reproduces / authored-share figures.)
+- Command: `node cli/makefun.mjs check --kit <kit> --repo <entry> --transcripts transcripts.tar.gz`
+  (trial bundle `transcripts.tar.gz`, 149,458 B, sha256
+  `6ac4a0ce3b7f19ded0bf0bab547a531eba73b3ed63d6ea46ad8ba9c9d128f4a7`,
+  1 session, 48 turns, 179 lines).
+- Result: **12 passed, 1 failed, 5 skipped, 5 checked at submission** —
+  `not ready: fix thinking_priced, then check again`.
+- Passes: competition_open, snapshot (8 files, 262,668 bytes, within caps),
+  license_osi (MIT), entrypoint (main.ts, node22), transcripts_present (1
+  muse-app session), transcripts_recorded, thinking_wellformed (116
+  messages, 66 tool results answering their calls), thinking_in_window (all
+  115 timestamps between opening 2026-11-17T23:43:00Z and receipt),
+  thinking_reproduces **95.0% (441 of 464 counted lines authored; 1 copied,
+  14 read, 8 absent; entrypoint main.ts 29 authored lines; unwritten 1.5%)**,
+  thinking_turns (38, need 5), thinking_revised (main.ts from 2 messages),
+  transcripts_run_record (handed-off prompt, agent facts, system prompt
+  in-session, instruction files collected, no MCP).
+- The one failure, thinking_priced, is structural to this subagent run and
+  expected: 0 usage rows, because a subagent's usage rows land in muse.db
+  only after its run completes. Fix (parent, after this run): run the SELECT
+  with agent_ids `9a92aa01-670b-44e5-847b-28c37f217fa9` (builder) and
+  `5b140a2e-8965-4909-b8eb-07f820a6be0e` (parent), append the rows to
+  `~/.makefun/muse-usage-news-image-20261117.jsonl`, re-bundle from the
+  top-level agent with `--session` + `--no-family` + `--muse-usage`, and
+  re-run the kit check. Nothing needs rebuilding.
+- At-submission items (site-side): repo_public (repo IS public, verified),
+  repo_owner (owner cashbags = the account's GitHub login), 
+  repo_created_after_open (created 2026-11-18T00:25:58Z, after opening),
+  commit_in_repo, duplicate_snapshot. NOTE: submit the **GitHub HEAD**
+  commit, not the local commit — the local commit `b5f1a3b…` was never
+  pushed as a commit (files went up via the Contents API, one commit per
+  file); the commit in the repo is the GitHub HEAD (see STATUS.md for the
+  current value after the CHECK.md push below).
